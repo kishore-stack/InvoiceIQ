@@ -1,0 +1,148 @@
+"""
+Response Model - Standardized JSON Schema for Invoice Data
+Member 2: Backend Engineer
+
+Ensures consistent API responses for frontend integration
+"""
+
+from typing import List, Optional
+from pydantic import BaseModel, Field
+from datetime import datetime
+
+class LineItem(BaseModel):
+    """
+    Individual line item in an invoice
+    """
+    description: str = Field(..., description="Item description")
+    quantity: float = Field(default=1.0, description="Item quantity")
+    unit_price: Optional[float] = Field(None, description="Price per unit")
+    price: Optional[float] = Field(None, description="Total price before tax")
+    tax: Optional[float] = Field(0.0, description="Tax amount")
+    discount: Optional[float] = Field(0.0, description="Discount amount")
+    total: Optional[float] = Field(None, description="Line item total")
+
+class Invoice(BaseModel):
+    """
+    Single invoice data structure
+    """
+    # Identification
+    invoice_number: Optional[str] = Field(None, description="Invoice number")
+    date: Optional[str] = Field(None, description="Invoice date")
+    
+    # Seller information
+    seller_name: Optional[str] = Field(None, description="Seller/vendor name")
+    seller_address: Optional[str] = Field(None, description="Seller address")
+    seller_gst: Optional[str] = Field(None, description="Seller GST number")
+    seller_contact: Optional[str] = Field(None, description="Seller contact")
+    
+    # Buyer information
+    buyer_name: Optional[str] = Field(None, description="Buyer/customer name")
+    buyer_address: Optional[str] = Field(None, description="Buyer address")
+    buyer_gst: Optional[str] = Field(None, description="Buyer GST number")
+    buyer_contact: Optional[str] = Field(None, description="Buyer contact")
+    
+    # Financial information
+    subtotal: Optional[float] = Field(None, description="Subtotal amount")
+    tax_amount: Optional[float] = Field(None, description="Total tax amount")
+    cgst: Optional[float] = Field(None, description="CGST amount")
+    sgst: Optional[float] = Field(None, description="SGST amount")
+    igst: Optional[float] = Field(None, description="IGST amount")
+    discount: Optional[float] = Field(0.0, description="Discount amount")
+    total_amount: Optional[float] = Field(None, description="Total amount")
+    
+    # Line items
+    line_items: List[LineItem] = Field(default_factory=list, description="Invoice line items")
+    
+    # Metadata
+    raw_text: Optional[str] = Field(None, description="Raw OCR text")
+    confidence_score: Optional[float] = Field(None, description="OCR confidence (0-100)")
+
+class ValidationResult(BaseModel):
+    """
+    Validation result structure
+    """
+    is_valid: bool = Field(..., description="Overall validation status")
+    validation_status: str = Field(..., description="Status: valid, invalid, review")
+    errors: List[str] = Field(default_factory=list, description="Validation errors")
+    warnings: List[str] = Field(default_factory=list, description="Validation warnings")
+
+class DocumentResponse(BaseModel):
+    """
+    Complete document response - Main API response format
+    """
+    document_id: str = Field(..., description="Unique document identifier")
+    invoice_count: int = Field(..., description="Number of invoices in document")
+    invoices: List[Invoice] = Field(..., description="List of invoices")
+    
+    # Validation
+    validation: Optional[ValidationResult] = Field(None, description="Validation results")
+    
+    # Processing metadata
+    processing_time: Optional[float] = Field(None, description="Processing time in seconds")
+    timestamp: str = Field(default_factory=lambda: datetime.now().isoformat(), description="Processing timestamp")
+
+class ErrorResponse(BaseModel):
+    """
+    Error response format
+    """
+    success: bool = Field(False, description="Success status")
+    error: str = Field(..., description="Error message")
+    error_type: str = Field(..., description="Error type/category")
+    details: Optional[dict] = Field(None, description="Additional error details")
+
+class UploadResponse(BaseModel):
+    """
+    Upload endpoint response
+    """
+    success: bool = Field(..., description="Upload success status")
+    message: str = Field(..., description="Response message")
+    document_id: Optional[str] = Field(None, description="Generated document ID")
+    file_info: Optional[dict] = Field(None, description="Uploaded file information")
+
+
+def create_document_response(
+    document_id: str,
+    invoices: List[dict],
+    validation: Optional[dict] = None,
+    processing_time: Optional[float] = None
+) -> dict:
+    """
+    Helper function to create standardized document response
+    
+    Args:
+        document_id: Unique document identifier
+        invoices: List of invoice dictionaries
+        validation: Validation results
+        processing_time: Processing time in seconds
+        
+    Returns:
+        Standardized response dictionary
+    """
+    return {
+        "document_id": document_id,
+        "invoice_count": len(invoices),
+        "invoices": invoices,
+        "validation": validation,
+        "processing_time": processing_time,
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+def create_error_response(error_message: str, error_type: str = "ProcessingError", details: Optional[dict] = None) -> dict:
+    """
+    Helper function to create standardized error response
+    
+    Args:
+        error_message: Error message
+        error_type: Type of error
+        details: Additional error details
+        
+    Returns:
+        Standardized error response
+    """
+    return {
+        "success": False,
+        "error": error_message,
+        "error_type": error_type,
+        "details": details
+    }
