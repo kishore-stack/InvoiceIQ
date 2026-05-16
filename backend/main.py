@@ -54,11 +54,12 @@ async def health_check():
     }
 
 # Import routes
-from routes import upload, test_upload
+from routes import upload, test_upload, test_ocr
 
 # Include routers
 app.include_router(upload.router)
 app.include_router(test_upload.router)
+app.include_router(test_ocr.router)
 
 if __name__ == "__main__":
     import uvicorn
