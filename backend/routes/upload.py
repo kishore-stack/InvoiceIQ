@@ -98,8 +98,11 @@ async def upload_invoice(file: UploadFile = File(...)):
                 logger.log_ocr_failure(image_path, ocr_result.get("error", "Unknown"))
                 continue
             
-            ocr_text = ocr_result["text"]
-            logger.log_ocr_complete(image_path, ocr_result["char_count"])
+            ocr_text = ocr_result.get("text", "")
+            if not ocr_text or not isinstance(ocr_text, str):
+                ocr_text = str(ocr_text) if ocr_text else ""
+                
+            logger.log_ocr_complete(image_path, ocr_result.get("char_count", 0))
             
             # STEP 5: Field Extraction
             logger.log_extraction_start(document_id)
