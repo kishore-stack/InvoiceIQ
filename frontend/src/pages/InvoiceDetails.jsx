@@ -1,117 +1,117 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FileText, Eye, Trash2, Building2, DollarSign } from "lucide-react";
 
-const InvoiceDetails = () => {
-  const { id } = useParams();
+const InvoiceCard = ({ invoice, onDelete }) => {
+  const invoiceData = invoice.invoices?.[0] || invoice;
 
-  const [invoice, setInvoice] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const documentId = invoice.document_id || invoiceData.document_id || invoice.id;
+  const invoiceNumber = invoiceData.invoice_number || "N/A";
+  const sellerName = invoiceData.seller_name || "N/A";
+  const buyerName = invoiceData.buyer_name || "N/A";
+  const totalAmount = invoiceData.total_amount;
 
-  useEffect(() => {
-    fetchInvoice();
-  }, []);
+  const validation = invoiceData.validation || invoice.validation || {};
+  const isValid =
+    validation.validation_status === true ||
+    validation.validation_status === "valid" ||
+    invoice.validation_status === "valid" ||
+    invoice.is_valid === true;
 
-  const fetchInvoice = async () => {
-    try {
-      console.log("Invoice ID:", id);
+  const confidenceScore =
+    invoiceData.confidence_score || invoice.confidence_score || 0;
 
-      // Direct fetch API
-      const response = await fetch("http://127.0.0.1:8000/api/history");
-
-      const result = await response.json();
-
-      console.log("API Result:", result);
-
-      // Backend returns {status,count,data}
-      const invoices = result.data || [];
-
-      console.log("Invoices:", invoices);
-
-      const foundInvoice = invoices.find(
-        (inv) =>
-          String(inv.document_id) === String(id) ||
-          String(inv.id) === String(id)
-      );
-
-      console.log("Found Invoice:", foundInvoice);
-
-      setInvoice(foundInvoice);
-
-    } catch (error) {
-      console.error("Error fetching invoice:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Loading
-  if (loading) {
-    return (
-      <div className="p-10 text-lg">
-        Loading...
-      </div>
-    );
-  }
-
-  // Not Found
-  if (!invoice) {
-    return (
-      <div className="p-10 text-red-600 text-xl">
-        Invoice not found
-      </div>
-    );
-  }
-
-  // Success
   return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Invoice Details
-      </h1>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+      <div className="flex items-start justify-between mb-5">
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-blue-100 rounded-lg">
+            <FileText className="w-7 h-7 text-blue-600" />
+          </div>
 
-      <div className="bg-white shadow-lg rounded-xl p-6 space-y-3">
-        <p>
-          <strong>Document ID:</strong> {invoice.document_id}
-        </p>
+          <div>
+            <h3 className="text-xl font-bold text-gray-900">
+              {invoiceNumber}
+            </h3>
+            <p className="text-sm text-gray-500">{documentId}</p>
+          </div>
+        </div>
 
-        <p>
-          <strong>Invoice Number:</strong> {invoice.invoice_number}
-        </p>
+        <span
+          className={`px-3 py-1 text-xs font-medium rounded-full ${
+            isValid
+              ? "bg-green-100 text-green-700"
+              : "bg-yellow-100 text-yellow-700"
+          }`}
+        >
+          {isValid ? "Valid" : "Review"}
+        </span>
+      </div>
 
-        <p>
-          <strong>Date:</strong> {invoice.date}
-        </p>
+      <div className="grid grid-cols-2 gap-4 mb-5">
+        <div>
+          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+            <Building2 className="w-4 h-4" />
+            <span>Seller</span>
+          </div>
+          <p className="font-semibold text-gray-900">{sellerName}</p>
+        </div>
 
-        <p>
-          <strong>Seller:</strong> {invoice.seller_name}
-        </p>
+        <div>
+          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+            <Building2 className="w-4 h-4" />
+            <span>Buyer</span>
+          </div>
+          <p className="font-semibold text-gray-900">{buyerName}</p>
+        </div>
+      </div>
 
-        <p>
-          <strong>Buyer:</strong> {invoice.buyer_name}
-        </p>
+      <div className="mb-5">
+        <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+          <DollarSign className="w-4 h-4" />
+          <span>Total Amount</span>
+        </div>
 
-        <p>
-          <strong>Subtotal:</strong> ₹{invoice.subtotal}
+        <p className="font-bold text-gray-900">
+          {totalAmount != null
+            ? `₹${Number(totalAmount).toLocaleString()}`
+            : "Not Extracted"}
         </p>
+      </div>
 
-        <p>
-          <strong>Tax Amount:</strong> ₹{invoice.tax_amount}
-        </p>
+      <div className="mb-5">
+        <div className="flex justify-between text-sm mb-2">
+          <span className="text-gray-600">Confidence Score</span>
+          <span className="font-semibold text-gray-900">
+            {confidenceScore}%
+          </span>
+        </div>
 
-        <p>
-          <strong>Total Amount:</strong> ₹{invoice.total_amount}
-        </p>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div
+            className="bg-green-500 h-2 rounded-full"
+            style={{ width: `${confidenceScore}%` }}
+          />
+        </div>
+      </div>
 
-        <p>
-          <strong>Status:</strong> {invoice.validation_status}
-        </p>
+      <div className="flex gap-3">
+        <Link
+          to={`/invoice/${documentId}`}
+          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors"
+        >
+          <Eye className="w-4 h-4" />
+          View Details
+        </Link>
 
-        <p>
-          <strong>Created At:</strong> {invoice.created_at}
-        </p>
+        <button
+          onClick={() => onDelete(documentId)}
+          className="px-4 py-3 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors"
+        >
+          <Trash2 className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
 };
 
-export default InvoiceDetails;
+export default InvoiceCard;
