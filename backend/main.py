@@ -18,14 +18,19 @@ app = FastAPI(
 )
 
 # CORS
+# CORS
+origins = [
+    "http://localhost:5173",
+    "invoice-iq-sd73-2rj8cjwiz-kishores-projects-6fd240ae.vercel.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # =========================================
 # ROOT
 # =========================================
