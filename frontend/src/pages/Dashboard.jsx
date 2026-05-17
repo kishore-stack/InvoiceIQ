@@ -25,33 +25,29 @@ const Dashboard = () => {
     filterInvoicesList();
   }, [searchQuery, filterStatus, invoices]);
 
-  const fetchInvoices = async () => {
-    setIsLoading(true);
-    setError(null);
+const fetchInvoices = async () => {
+  setIsLoading(true);
+  setError(null);
 
-    try {
-      console.log("Fetching invoices from backend...");
+  try {
+    const savedResult = localStorage.getItem("latestInvoiceResult");
 
-      const response = await fetch("http://127.0.0.1:8000/api/history");
+    if (savedResult) {
+      const parsed = JSON.parse(savedResult);
 
-      const result = await response.json();
-
-      console.log("Backend Response:", result);
-
-      const invoiceData = result.data || result;
-
-      console.log("Invoice Data:", invoiceData);
-
-      setInvoices(invoiceData);
-      setFilteredInvoices(invoiceData);
-
-    } catch (err) {
-      console.error("Error loading invoices:", err);
-      setError("Failed to load invoices");
-    } finally {
-      setIsLoading(false);
+      setInvoices([parsed]);
+      setFilteredInvoices([parsed]);
+    } else {
+      setInvoices([]);
+      setFilteredInvoices([]);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setError("Failed to load invoices");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const filterInvoicesList = () => {
     let filtered = [...invoices];
