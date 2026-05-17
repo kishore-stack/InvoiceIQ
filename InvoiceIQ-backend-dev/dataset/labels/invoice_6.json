@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1006",
+    "seller_name": "Global Traders",
+    "buyer_name": "Mega Stores",
+    "date": "2025-09-28",
+    "subtotal": 25641.0,
+    "tax_amount": null,
+    "total_amount": 25641.0
+}

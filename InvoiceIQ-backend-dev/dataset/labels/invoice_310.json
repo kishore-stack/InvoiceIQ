@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1310",
+    "seller_name": "Skyline Corp",
+    "buyer_name": "Smart Solutions",
+    "date": "2026-04-24",
+    "subtotal": 43612.0,
+    "tax_amount": null,
+    "total_amount": 43612.0
+}

@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1090",
+    "seller_name": "ABC Pvt Ltd",
+    "buyer_name": "Mega Stores",
+    "date": "2026-01-15",
+    "subtotal": 16655.0,
+    "tax_amount": null,
+    "total_amount": 16655.0
+}

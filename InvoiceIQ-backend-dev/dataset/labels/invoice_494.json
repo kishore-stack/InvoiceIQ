@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1494",
+    "seller_name": "TechNova",
+    "buyer_name": "Blue Enterprises",
+    "date": "2025-10-13",
+    "subtotal": 11049.0,
+    "tax_amount": null,
+    "total_amount": 11049.0
+}

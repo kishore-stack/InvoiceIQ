@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1238",
+    "seller_name": "TechNova",
+    "buyer_name": "Blue Enterprises",
+    "date": "2025-12-08",
+    "subtotal": 19853.0,
+    "tax_amount": null,
+    "total_amount": 19853.0
+}

@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1232",
+    "seller_name": "TechNova",
+    "buyer_name": "Mega Stores",
+    "date": "2025-12-23",
+    "subtotal": 10811.0,
+    "tax_amount": null,
+    "total_amount": 10811.0
+}

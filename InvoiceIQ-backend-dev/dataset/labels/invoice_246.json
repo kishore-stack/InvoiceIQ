@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1246",
+    "seller_name": "Global Traders",
+    "buyer_name": "Smart Solutions",
+    "date": "2026-02-10",
+    "subtotal": 48417.0,
+    "tax_amount": null,
+    "total_amount": 48417.0
+}

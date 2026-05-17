@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1199",
+    "seller_name": "TechNova",
+    "buyer_name": "John Retail",
+    "date": "2026-02-22",
+    "subtotal": 24788.0,
+    "tax_amount": null,
+    "total_amount": 24788.0
+}
