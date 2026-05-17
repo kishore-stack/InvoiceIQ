@@ -103,13 +103,12 @@ class TableExtractor:
                 total = quantity * unit_price
             
             return {
-                "description": description,
+                "item": description,
                 "quantity": quantity,
-                "unit_price": unit_price,
                 "price": unit_price,
                 "tax": tax,
                 "discount": 0.0,
-                "total": total
+                "line_total": total
             }
         
         except (ValueError, IndexError):
@@ -176,13 +175,12 @@ class TableExtractor:
                 total = float(match[3])
                 
                 line_items.append({
-                    "description": description,
+                    "item": description,
                     "quantity": quantity,
-                    "unit_price": unit_price,
                     "price": unit_price,
                     "tax": 0.0,
                     "discount": 0.0,
-                    "total": total
+                    "line_total": total
                 })
             
             except (ValueError, IndexError):

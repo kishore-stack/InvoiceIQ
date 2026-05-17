@@ -16,7 +16,7 @@ class InvoiceLogger:
     
     def __init__(self):
         self.base_dir = Path(__file__).parent.parent
-        self.logs_dir = self.base_dir / "logs"
+        self.logs_dir = self.base_dir / "outputs" / "logs"
         self.logs_dir.mkdir(exist_ok=True)
         
         # Create logger
@@ -94,6 +94,17 @@ class InvoiceLogger:
         """Log validation result"""
         status = "VALID" if is_valid else "INVALID"
         self.info(f"Validation {status}: {document_id} - {error_count} errors")
+        
+    def log_validation_errors(self, document_id: str, errors: list, warnings: list):
+        """Explicitly log validation mismatches and missing fields"""
+        if errors:
+            self.error(f"Validation Errors for {document_id}: {', '.join(errors)}")
+        if warnings:
+            self.warning(f"Validation Warnings for {document_id}: {', '.join(warnings)}")
+            
+    def log_table_extraction_failure(self, document_id: str):
+        """Log malformed tables or extraction failures"""
+        self.warning(f"Table Extraction Warning: Malformed or missing table for {document_id}")
     
     def log_api_request(self, endpoint: str, method: str):
         """Log API request"""

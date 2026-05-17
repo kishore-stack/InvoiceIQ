@@ -180,16 +180,8 @@ class InvoiceValidator:
         # Determine overall status
         is_valid = len(all_errors) == 0
         
-        if is_valid:
-            status = "valid"
-        elif len(all_warnings) > 0 and len(all_errors) == 0:
-            status = "review"
-        else:
-            status = "invalid"
-        
         return {
-            "is_valid": is_valid,
-            "validation_status": status,
+            "validation_status": is_valid,
             "errors": all_errors,
             "warnings": all_warnings
         }

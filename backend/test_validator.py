@@ -26,8 +26,7 @@ def test_invoice_validation():
     }
     
     result = invoice_validator.validate_invoice(valid_data)
-    assert result["is_valid"] == True, f"Validation failed for valid data: {result['errors']}"
-    assert result["validation_status"] == "valid"
+    assert result["validation_status"] == True, f"Validation failed for valid data: {result['errors']}"
     assert len(result["errors"]) == 0
     
     # Invalid Calculation Data
@@ -35,8 +34,7 @@ def test_invoice_validation():
     invalid_data["total_amount"] = 1200.00 # Incorrect total
     
     result2 = invoice_validator.validate_invoice(invalid_data)
-    assert result2["is_valid"] == False, "Validation should fail for incorrect calculation"
-    assert result2["validation_status"] == "invalid"
+    assert result2["validation_status"] == False, "Validation should fail for incorrect calculation"
     assert len(result2["errors"]) > 0
     assert "Calculation mismatch" in result2["errors"][0]
     
@@ -45,7 +43,7 @@ def test_invoice_validation():
     missing_data["seller_name"] = None
     
     result3 = invoice_validator.validate_invoice(missing_data)
-    assert result3["is_valid"] == False
+    assert result3["validation_status"] == False
     assert any("Missing required field" in err for err in result3["errors"])
     
     # Invalid GST
@@ -53,7 +51,7 @@ def test_invoice_validation():
     gst_data["seller_gst"] = "INVALID123"
     
     result4 = invoice_validator.validate_invoice(gst_data)
-    assert result4["is_valid"] == False
+    assert result4["validation_status"] == False
     assert any("Invalid GST format" in err for err in result4["errors"])
     
     print("Success: Invoice Validator tests passed!")

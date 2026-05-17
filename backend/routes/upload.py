@@ -126,6 +126,9 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
             table_result = table_extractor.extract_table_data(ocr_text)
             line_items = table_result["line_items"]
             
+            if not table_result["success"] or len(line_items) == 0:
+                logger.log_table_extraction_failure(document_id)
+                
             # Combine all extracted data
             invoice_data = {
                 "invoice_number": invoice_fields.get("invoice_number") or "UNKNOWN",
@@ -152,10 +155,16 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
             validation_result = invoice_validator.validate_invoice(invoice_data)
             logger.log_validation_result(
                 document_id,
-                validation_result["is_valid"],
+                validation_result["validation_status"],
                 len(validation_result["errors"])
             )
+            logger.log_validation_errors(
+                document_id,
+                validation_result["errors"],
+                validation_result["warnings"]
+            )
             
+            invoice_data["validation"] = validation_result
             invoices.append(invoice_data)
         
         # Calculate processing time
@@ -169,13 +178,9 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
                 "ProcessingError"
             )
         
-        # Get validation for first invoice (or aggregate)
-        validation = invoice_validator.validate_invoice(invoices[0]) if invoices else None
-        
         response = create_document_response(
             document_id=document_id,
             invoices=invoices,
-            validation=validation,
             processing_time=processing_time
         )
         
@@ -194,7 +199,7 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
                     subtotal=inv_data.get("subtotal"),
                     tax_amount=inv_data.get("tax_amount"),
                     total_amount=inv_data.get("total_amount"),
-                    validation_status=validation["validation_status"] if validation else "pending",
+                    validation_status="valid" if inv_data.get("validation", {}).get("validation_status") else "invalid",
                     processing_time=processing_time
                 )
                 db.add(db_inv)

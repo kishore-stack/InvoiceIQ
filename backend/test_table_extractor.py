@@ -35,13 +35,13 @@ def test_table_extraction():
     assert result["item_count"] == 3, f"Expected 3 items, got {result['item_count']}"
     
     items = result["line_items"]
-    assert items[0]["description"].strip() == "Laptop Pro", f"Got description: {items[0]['description']}"
+    assert items[0]["item"].strip() == "Laptop Pro", f"Got description: {items[0]['item']}"
     assert items[0]["quantity"] == 1.0
-    assert items[0]["total"] == 1200.0
+    assert items[0]["line_total"] == 1200.0
     
-    assert items[1]["description"].strip() == "Wireless Mouse"
+    assert items[1]["item"].strip() == "Wireless Mouse"
     assert items[1]["quantity"] == 2.0
-    assert items[1]["total"] == 50.0
+    assert items[1]["line_total"] == 50.0
     
     print("Success: Table Extractor tests passed!")
 

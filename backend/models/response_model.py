@@ -13,13 +13,12 @@ class LineItem(BaseModel):
     """
     Individual line item in an invoice
     """
-    description: str = Field(..., description="Item description")
+    item: str = Field(..., description="Item description")
     quantity: float = Field(default=1.0, description="Item quantity")
-    unit_price: Optional[float] = Field(None, description="Price per unit")
-    price: Optional[float] = Field(None, description="Total price before tax")
+    price: Optional[float] = Field(None, description="Item price")
     tax: Optional[float] = Field(0.0, description="Tax amount")
     discount: Optional[float] = Field(0.0, description="Discount amount")
-    total: Optional[float] = Field(None, description="Line item total")
+    line_total: Optional[float] = Field(None, description="Line item total")
 
 class Invoice(BaseModel):
     """
@@ -56,13 +55,15 @@ class Invoice(BaseModel):
     # Metadata
     raw_text: Optional[str] = Field(None, description="Raw OCR text")
     confidence_score: Optional[float] = Field(None, description="OCR confidence (0-100)")
+    
+    # Validation
+    validation: Optional['ValidationResult'] = Field(None, description="Validation results")
 
 class ValidationResult(BaseModel):
     """
     Validation result structure
     """
-    is_valid: bool = Field(..., description="Overall validation status")
-    validation_status: str = Field(..., description="Status: valid, invalid, review")
+    validation_status: bool = Field(..., description="Overall validation status")
     errors: List[str] = Field(default_factory=list, description="Validation errors")
     warnings: List[str] = Field(default_factory=list, description="Validation warnings")
 
@@ -73,9 +74,6 @@ class DocumentResponse(BaseModel):
     document_id: str = Field(..., description="Unique document identifier")
     invoice_count: int = Field(..., description="Number of invoices in document")
     invoices: List[Invoice] = Field(..., description="List of invoices")
-    
-    # Validation
-    validation: Optional[ValidationResult] = Field(None, description="Validation results")
     
     # Processing metadata
     processing_time: Optional[float] = Field(None, description="Processing time in seconds")
@@ -112,7 +110,6 @@ def create_document_response(
     Args:
         document_id: Unique document identifier
         invoices: List of invoice dictionaries
-        validation: Validation results
         processing_time: Processing time in seconds
         
     Returns:
@@ -122,7 +119,6 @@ def create_document_response(
         "document_id": document_id,
         "invoice_count": len(invoices),
         "invoices": invoices,
-        "validation": validation,
         "processing_time": processing_time,
         "timestamp": datetime.now().isoformat()
     }
