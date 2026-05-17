@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1222",
-    "seller_name": "Skyline Corp",
-    "buyer_name": "Mega Stores",
-    "date": "2026-02-14",
-    "subtotal": 22522.0,
-    "tax_amount": null,
-    "total_amount": 22522.0
-}

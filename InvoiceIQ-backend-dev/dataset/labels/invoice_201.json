@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1201",
-    "seller_name": "FutureSoft",
-    "buyer_name": "Blue Enterprises",
-    "date": "2026-03-10",
-    "subtotal": 15575.0,
-    "tax_amount": null,
-    "total_amount": 15575.0
-}

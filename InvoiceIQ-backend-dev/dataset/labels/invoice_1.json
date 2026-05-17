@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1001",
-    "seller_name": "FutureSoft",
-    "buyer_name": "Smart Solutions",
-    "date": "2026-01-09",
-    "subtotal": 39964.0,
-    "tax_amount": null,
-    "total_amount": 39964.0
-}

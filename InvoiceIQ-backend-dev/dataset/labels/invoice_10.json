@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1010",
-    "seller_name": "Global Traders",
-    "buyer_name": "John Retail",
-    "date": "2026-03-12",
-    "subtotal": 36477.0,
-    "tax_amount": null,
-    "total_amount": 36477.0
-}

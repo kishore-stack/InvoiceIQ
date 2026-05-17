@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1236",
-    "seller_name": "ABC Pvt Ltd",
-    "buyer_name": "Quick Mart",
-    "date": "2025-09-05",
-    "subtotal": 31705.0,
-    "tax_amount": null,
-    "total_amount": 31705.0
-}
