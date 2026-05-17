@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List, Optional
 from pdf2image import convert_from_path
 from PIL import Image
+from config import settings
 
 class PDFConverter:
     """
@@ -15,8 +16,7 @@ class PDFConverter:
     """
     
     def __init__(self):
-        self.base_dir = Path(__file__).parent.parent
-        self.outputs_dir = self.base_dir / "outputs"
+        self.outputs_dir = settings.OUTPUT_DIR
         self.outputs_dir.mkdir(exist_ok=True)
         
         # Conversion settings
@@ -53,11 +53,12 @@ class PDFConverter:
                     "image_paths": []
                 }
             
-            # Convert PDF to images
+            # Convert PDF to images using multiple threads for performance
             images = convert_from_path(
                 pdf_path,
                 dpi=self.dpi,
-                fmt=self.image_format.lower()
+                fmt=self.image_format.lower(),
+                thread_count=4
             )
             
             if not images:

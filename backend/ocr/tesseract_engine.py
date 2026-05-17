@@ -8,6 +8,7 @@ import numpy as np
 from pathlib import Path
 from typing import Optional, Tuple
 import os
+from config import settings
 
 class TesseractOCR:
     """
@@ -15,22 +16,26 @@ class TesseractOCR:
     """
     
     def __init__(self):
-        self.base_dir = Path(__file__).parent.parent
-        self.outputs_dir = self.base_dir / "outputs"
+        self.outputs_dir = settings.OUTPUT_DIR
         self.outputs_dir.mkdir(exist_ok=True)
         
         # OCR configuration
         self.language = 'eng'
         self.config = '--psm 6'  # Assume uniform block of text
         
-        # Try to set Tesseract path (Windows)
+        # Try to set Tesseract path
         tesseract_paths = [
+            settings.TESSERACT_CMD,
             r"C:\Program Files\Tesseract-OCR\tesseract.exe",
             r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+            "/usr/bin/tesseract",
+            "/usr/local/bin/tesseract"
         ]
         
         for path in tesseract_paths:
-            if os.path.exists(path):
+            if os.path.exists(path) or (os.name != 'nt' and not path.endswith('.exe')):
+                # In linux/mac, 'tesseract' as a command might exist in PATH without absolute path
+                # So we let it try the command
                 pytesseract.pytesseract.tesseract_cmd = path
                 break
     

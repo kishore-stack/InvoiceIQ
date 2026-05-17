@@ -83,10 +83,11 @@ class ErrorResponse(BaseModel):
     """
     Error response format
     """
-    success: bool = Field(False, description="Success status")
-    error: str = Field(..., description="Error message")
-    error_type: str = Field(..., description="Error type/category")
-    details: Optional[dict] = Field(None, description="Additional error details")
+    status: str = Field("error", description="Status string")
+    message: str = Field(..., description="Clean error message")
+    document_id: str = Field("", description="Document ID if available")
+    invoice_count: int = Field(0, description="Always 0 for errors")
+    invoices: list = Field(default_factory=list, description="Always empty for errors")
 
 class UploadResponse(BaseModel):
     """
@@ -124,21 +125,21 @@ def create_document_response(
     }
 
 
-def create_error_response(error_message: str, error_type: str = "ProcessingError", details: Optional[dict] = None) -> dict:
+def create_error_response(error_message: str, document_id: str = "") -> dict:
     """
-    Helper function to create standardized error response
+    Helper function to create standardized error response with stable schema
     
     Args:
-        error_message: Error message
-        error_type: Type of error
-        details: Additional error details
+        error_message: Clean error message to show user
+        document_id: Optional document ID if failed midway
         
     Returns:
-        Standardized error response
+        Standardized error response matching frontend expectations
     """
     return {
-        "success": False,
-        "error": error_message,
-        "error_type": error_type,
-        "details": details
+        "status": "error",
+        "message": error_message,
+        "document_id": document_id,
+        "invoice_count": 0,
+        "invoices": []
     }

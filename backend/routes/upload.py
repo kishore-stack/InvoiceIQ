@@ -25,6 +25,7 @@ from extractor.table_extractor import table_extractor
 from validator.invoice_validator import invoice_validator
 from models.response_model import create_document_response, create_error_response
 from utils.logger import logger
+from utils.cleanup import cleanup_manager
 
 router = APIRouter(prefix="/api", tags=["Upload"])
 
@@ -62,7 +63,7 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
         
         if not file_info["success"]:
             logger.log_api_error("/api/upload", "File upload failed")
-            return create_error_response("File upload failed", "FileUploadError")
+            return create_error_response("File upload failed", document_id)
         
         logger.log_upload(file_info["original_filename"], file_info["file_size_bytes"])
         file_path = file_info["file_path"]
@@ -74,7 +75,7 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
             logger.error(f"PDF conversion failed: {conversion_result.get('error')}")
             return create_error_response(
                 conversion_result.get("error", "PDF conversion failed"),
-                "PDFConversionError"
+                document_id
             )
         
         image_paths = conversion_result["image_paths"]
@@ -175,7 +176,7 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
         if not invoices:
             return create_error_response(
                 "No invoices could be processed from the uploaded file",
-                "ProcessingError"
+                document_id
             )
         
         response = create_document_response(
@@ -225,15 +226,16 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
         logger.info(f"Successfully processed document: {document_id}")
         return response
     
-    except HTTPException:
-        raise
-    
     except Exception as e:
         logger.log_api_error("/api/upload", str(e))
         return create_error_response(
-            f"Processing failed: {str(e)}",
-            "InternalError"
+            "Unable to process invoice. An internal error occurred.",
+            document_id
         )
+        
+    finally:
+        # STEP 10: Cleanup Temporary Files
+        cleanup_manager.cleanup_document_files(document_id)
 
 
 

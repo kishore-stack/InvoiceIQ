@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import Optional
 from fastapi import UploadFile, HTTPException
 import shutil
+import magic  # For MIME checking (python-magic) - wait, python-magic needs system deps. Let's use mimetypes.
+import mimetypes
+
+from config import settings
 
 class FileHandler:
     """
@@ -16,20 +20,16 @@ class FileHandler:
     """
     
     def __init__(self):
-        # Define directories
-        self.base_dir = Path(__file__).parent.parent
-        self.uploads_dir = self.base_dir / "uploads"
-        self.outputs_dir = self.base_dir / "outputs"
+        # Define directories using config
+        self.uploads_dir = settings.UPLOAD_DIR
+        self.outputs_dir = settings.OUTPUT_DIR
         
-        # Create directories if they don't exist
-        self.uploads_dir.mkdir(exist_ok=True)
-        self.outputs_dir.mkdir(exist_ok=True)
+        # Allowed file extensions and types
+        self.allowed_extensions = settings.ALLOWED_EXTENSIONS
+        self.allowed_mime_types = settings.ALLOWED_MIME_TYPES
         
-        # Allowed file extensions
-        self.allowed_extensions = {'.png', '.jpg', '.jpeg', '.pdf'}
-        
-        # Maximum file size (10MB)
-        self.max_file_size = 10 * 1024 * 1024
+        # Maximum file size
+        self.max_file_size = settings.MAX_FILE_SIZE_BYTES
     
     def validate_file(self, file: UploadFile) -> bool:
         """
@@ -52,13 +52,21 @@ class FileHandler:
             )
         
         # Get file extension
-        file_ext = Path(file.filename).suffix.lower()
+        file_ext = Path(file.filename).suffix.lower().replace('.', '')
         
         # Validate extension
         if file_ext not in self.allowed_extensions:
             raise HTTPException(
                 status_code=400,
                 detail=f"Invalid file type. Allowed: {', '.join(self.allowed_extensions)}"
+            )
+            
+        # Basic MIME check
+        mime_type, _ = mimetypes.guess_type(file.filename)
+        if mime_type and mime_type not in self.allowed_mime_types:
+            raise HTTPException(
+                status_code=400,
+                detail="Suspicious file content. Invalid MIME type."
             )
         
         return True

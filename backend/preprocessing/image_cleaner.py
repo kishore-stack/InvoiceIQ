@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 from pathlib import Path
 from typing import Optional, Tuple
+from config import settings
 
 class ImageCleaner:
     """
@@ -16,8 +17,7 @@ class ImageCleaner:
     """
     
     def __init__(self):
-        self.base_dir = Path(__file__).parent.parent
-        self.outputs_dir = self.base_dir / "outputs"
+        self.outputs_dir = settings.OUTPUT_DIR
         self.outputs_dir.mkdir(exist_ok=True)
     
     def read_image(self, image_path: str) -> Optional[np.ndarray]:

@@ -28,13 +28,23 @@
 source venv/bin/activate
 ```
 
-### 2. Run the Server
-```bash
-cd backend
-uvicorn main:app --reload
+### 2. Configure Environment
+Create a `.env` file in the `backend` directory:
+```env
+UPLOAD_DIR=uploads
+OUTPUT_DIR=outputs
+LOGS_DIR=outputs/logs
+MAX_FILE_SIZE_MB=10
+TESSERACT_CMD=tesseract
 ```
 
-### 3. Test the API
+### 3. Run the Server
+```bash
+cd backend
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### 4. Test the API
 Open browser: http://127.0.0.1:8000/docs
 
 ---
@@ -116,6 +126,8 @@ Response: Batch upload results
 - pdf2image - PDF conversion
 - pillow - Image handling
 - python-multipart - File upload support
+- python-dotenv - Environment configuration
+- sqlalchemy - Database integration
 
 ---
 
