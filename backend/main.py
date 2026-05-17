@@ -46,12 +46,18 @@ async def health_check():
         "service": "InvoiceIQ Backend",
         "components": {
             "api": "operational",
-            "ocr": "pending_implementation",
-            "preprocessing": "pending_implementation",
-            "extraction": "pending_implementation",
-            "validation": "pending_implementation"
+            "ocr": "operational",
+            "preprocessing": "operational",
+            "extraction": "operational",
+            "validation": "operational",
+            "database": "operational"
         }
     }
+
+# Import database and create tables
+from database.db import engine, Base
+import models.db_models
+Base.metadata.create_all(bind=engine)
 
 # Import routes
 from routes import upload, test_upload, test_ocr

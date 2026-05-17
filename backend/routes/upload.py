@@ -3,10 +3,15 @@ Upload Route - Complete Invoice Processing Pipeline
 Member 2: Backend Engineer
 """
 
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
+from sqlalchemy.orm import Session
 from typing import List
 import time
 import uuid
+
+# Import database modules
+from database.db import get_db
+from models.db_models import DBInvoice, DBLineItem
 
 # Import all processing modules
 from utils.file_handler import file_handler
@@ -25,7 +30,7 @@ router = APIRouter(prefix="/api", tags=["Upload"])
 
 
 @router.post("/upload")
-async def upload_invoice(file: UploadFile = File(...)):
+async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get_db)):
     """
     Complete invoice processing pipeline
     
@@ -173,6 +178,44 @@ async def upload_invoice(file: UploadFile = File(...)):
             validation=validation,
             processing_time=processing_time
         )
+        
+        # STEP 9: Save to Database
+        try:
+            for inv_data in invoices:
+                # Create invoice record
+                db_inv = DBInvoice(
+                    document_id=document_id,
+                    invoice_number=inv_data.get("invoice_number"),
+                    date=inv_data.get("date"),
+                    seller_name=inv_data.get("seller_name"),
+                    seller_gst=inv_data.get("seller_gst"),
+                    buyer_name=inv_data.get("buyer_name"),
+                    buyer_gst=inv_data.get("buyer_gst"),
+                    subtotal=inv_data.get("subtotal"),
+                    tax_amount=inv_data.get("tax_amount"),
+                    total_amount=inv_data.get("total_amount"),
+                    validation_status=validation["validation_status"] if validation else "pending",
+                    processing_time=processing_time
+                )
+                db.add(db_inv)
+                db.commit()
+                db.refresh(db_inv)
+                
+                # Add line items
+                for item in inv_data.get("line_items", []):
+                    db_item = DBLineItem(
+                        invoice_id=db_inv.id,
+                        description=item.get("description"),
+                        quantity=item.get("quantity", 1.0),
+                        unit_price=item.get("unit_price"),
+                        total=item.get("total")
+                    )
+                    db.add(db_item)
+                db.commit()
+            logger.info(f"Saved document {document_id} to database.")
+        except Exception as db_err:
+            logger.error(f"Database save error: {str(db_err)}")
+            # Continue returning response even if DB fails
         
         logger.info(f"Successfully processed document: {document_id}")
         return response
