@@ -1,0 +1,62 @@
+2026-05-17 13:22:21 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:22:21 - InvoiceIQ - INFO - Processing document: DOC2D0C8EE8
+2026-05-17 13:22:21 - InvoiceIQ - INFO - File uploaded: invoice_427.pdf (2160 bytes)
+2026-05-17 13:22:21 - InvoiceIQ - ERROR - PDF conversion failed: PDF conversion failed: Unable to get page count. Is poppler installed and in PATH?
+2026-05-17 13:22:21 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOC2D0C8EE8
+2026-05-17 13:47:09 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:47:09 - InvoiceIQ - INFO - Processing document: DOCAA3F2602
+2026-05-17 13:47:09 - InvoiceIQ - INFO - File uploaded: invoice_431.pdf (2123 bytes)
+2026-05-17 13:47:09 - InvoiceIQ - ERROR - PDF conversion failed: PDF conversion failed: Unable to get page count. Is poppler installed and in PATH?
+2026-05-17 13:47:09 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOCAA3F2602
+2026-05-17 13:47:13 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:47:13 - InvoiceIQ - INFO - Processing document: DOCA9897BEE
+2026-05-17 13:47:13 - InvoiceIQ - INFO - File uploaded: invoice_431.pdf (2123 bytes)
+2026-05-17 13:47:13 - InvoiceIQ - ERROR - PDF conversion failed: PDF conversion failed: Unable to get page count. Is poppler installed and in PATH?
+2026-05-17 13:47:13 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOCA9897BEE
+2026-05-17 13:47:18 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:47:18 - InvoiceIQ - INFO - Processing document: DOC39E5CAC8
+2026-05-17 13:47:18 - InvoiceIQ - INFO - File uploaded: invoice_431.pdf (2123 bytes)
+2026-05-17 13:47:18 - InvoiceIQ - ERROR - PDF conversion failed: PDF conversion failed: Unable to get page count. Is poppler installed and in PATH?
+2026-05-17 13:47:18 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOC39E5CAC8
+2026-05-17 13:52:19 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:52:19 - InvoiceIQ - INFO - Processing document: DOCDEF25ADC
+2026-05-17 13:52:20 - InvoiceIQ - INFO - File uploaded: invoice_431.pdf (2123 bytes)
+2026-05-17 13:52:22 - InvoiceIQ - INFO - Processing 1 image(s)
+2026-05-17 13:52:22 - InvoiceIQ - INFO - Processing image 1/1: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_431_c5ae4be0_page_1.png
+2026-05-17 13:52:23 - InvoiceIQ - INFO - Starting OCR processing: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_431_c5ae4be0_page_1.png
+2026-05-17 13:52:24 - InvoiceIQ - ERROR - OCR failed for C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_431_c5ae4be0_page_1.png: OCR failed: tesseract is not installed or it's not in your PATH. See README file for more information.
+2026-05-17 13:52:24 - InvoiceIQ - INFO - Processing completed: DOCDEF25ADC - 4.63s
+2026-05-17 13:52:24 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOCDEF25ADC
+2026-05-17 13:59:24 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 13:59:24 - InvoiceIQ - INFO - Processing document: DOC2D165C9A
+2026-05-17 13:59:25 - InvoiceIQ - INFO - File uploaded: invoice_491.pdf (2121 bytes)
+2026-05-17 13:59:26 - InvoiceIQ - INFO - Processing 1 image(s)
+2026-05-17 13:59:26 - InvoiceIQ - INFO - Processing image 1/1: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_491_a65ad173_page_1.png
+2026-05-17 13:59:27 - InvoiceIQ - INFO - Starting OCR processing: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_491_a65ad173_page_1.png
+2026-05-17 13:59:30 - InvoiceIQ - INFO - OCR completed: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_491_a65ad173_page_1.png - Extracted 138 characters
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Starting field extraction: DOC2D165C9A
+2026-05-17 13:59:30 - InvoiceIQ - WARNING - Table Extraction Warning: Malformed or missing table for DOC2D165C9A
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Extraction completed: DOC2D165C9A - 5 fields extracted
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Validation INVALID: DOC2D165C9A - 1 errors
+2026-05-17 13:59:30 - InvoiceIQ - ERROR - Validation Errors for DOC2D165C9A: Missing required field: total_amount
+2026-05-17 13:59:30 - InvoiceIQ - WARNING - Validation Warnings for DOC2D165C9A: Insufficient data for calculation validation
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Processing completed: DOC2D165C9A - 5.52s
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Saved document DOC2D165C9A to database.
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Successfully processed document: DOC2D165C9A
+2026-05-17 13:59:30 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOC2D165C9A
+2026-05-17 14:03:17 - InvoiceIQ - INFO - API Request: POST /api/upload
+2026-05-17 14:03:17 - InvoiceIQ - INFO - Processing document: DOC35B83A9C
+2026-05-17 14:03:18 - InvoiceIQ - INFO - File uploaded: invoice_458.pdf (2122 bytes)
+2026-05-17 14:03:19 - InvoiceIQ - INFO - Processing 1 image(s)
+2026-05-17 14:03:19 - InvoiceIQ - INFO - Processing image 1/1: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_458_cdf7bfe9_page_1.png
+2026-05-17 14:03:20 - InvoiceIQ - INFO - Starting OCR processing: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_458_cdf7bfe9_page_1.png
+2026-05-17 14:03:21 - InvoiceIQ - INFO - OCR completed: C:\Users\Gowtham k\Downloads\InvoiceIQ-backend-dev\InvoiceIQ-backend-dev\backend\outputs\invoice_458_cdf7bfe9_page_1.png - Extracted 146 characters
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Starting field extraction: DOC35B83A9C
+2026-05-17 14:03:21 - InvoiceIQ - WARNING - Table Extraction Warning: Malformed or missing table for DOC35B83A9C
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Extraction completed: DOC35B83A9C - 8 fields extracted
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Validation VALID: DOC35B83A9C - 0 errors
+2026-05-17 14:03:21 - InvoiceIQ - WARNING - Validation Warnings for DOC35B83A9C: Insufficient data for calculation validation
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Processing completed: DOC35B83A9C - 3.57s
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Saved document DOC35B83A9C to database.
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Successfully processed document: DOC35B83A9C
+2026-05-17 14:03:21 - InvoiceIQ - INFO - Successfully cleaned up temporary files for document: DOC35B83A9C
