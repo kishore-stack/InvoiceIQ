@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1058",
+    "seller_name": "Skyline Corp",
+    "buyer_name": "Quick Mart",
+    "date": "2025-07-23",
+    "subtotal": 40730.0,
+    "tax_amount": null,
+    "total_amount": 40730.0
+}

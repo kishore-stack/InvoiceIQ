@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1136",
+    "seller_name": "TechNova",
+    "buyer_name": "Quick Mart",
+    "date": "2025-05-30",
+    "subtotal": 19912.0,
+    "tax_amount": null,
+    "total_amount": 19912.0
+}

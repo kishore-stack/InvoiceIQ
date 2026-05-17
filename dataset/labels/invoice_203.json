@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1203",
+    "seller_name": "ABC Pvt Ltd",
+    "buyer_name": "Blue Enterprises",
+    "date": "2026-04-04",
+    "subtotal": 14431.0,
+    "tax_amount": null,
+    "total_amount": 14431.0
+}

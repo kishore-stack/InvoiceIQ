@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1138",
+    "seller_name": "Skyline Corp",
+    "buyer_name": "John Retail",
+    "date": "2025-09-17",
+    "subtotal": 14728.0,
+    "tax_amount": null,
+    "total_amount": 14728.0
+}

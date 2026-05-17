@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1004",
+    "seller_name": "FutureSoft",
+    "buyer_name": "Quick Mart",
+    "date": "2026-04-27",
+    "subtotal": 48741.0,
+    "tax_amount": null,
+    "total_amount": 48741.0
+}

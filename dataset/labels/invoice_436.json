@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1436",
+    "seller_name": "FutureSoft",
+    "buyer_name": "Blue Enterprises",
+    "date": "2025-08-31",
+    "subtotal": 2103.0,
+    "tax_amount": null,
+    "total_amount": 2103.0
+}

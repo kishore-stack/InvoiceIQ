@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1357",
+    "seller_name": "ABC Pvt Ltd",
+    "buyer_name": "Quick Mart",
+    "date": "2025-11-14",
+    "subtotal": 38888.0,
+    "tax_amount": null,
+    "total_amount": 38888.0
+}

@@ -1,0 +1,75 @@
+# ============================================================
+# InvoiceIQ - .gitignore
+# ============================================================
+
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*$py.class
+*.so
+
+# Build artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.Python
+
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.production
+
+# Backend runtime directories (generated at runtime)
+backend/uploads/
+backend/outputs/
+backend/logs/
+backend/samples/*.jpg
+backend/samples/*.png
+backend/samples/*.pdf
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Node (frontend - already handled by teammate)
+node_modules/
+dist/
+.next/
