@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1023",
+    "seller_name": "FutureSoft",
+    "buyer_name": "Mega Stores",
+    "date": "2025-05-30",
+    "subtotal": 39824.0,
+    "tax_amount": null,
+    "total_amount": 39824.0
+}

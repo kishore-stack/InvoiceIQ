@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1065",
+    "seller_name": "ABC Pvt Ltd",
+    "buyer_name": "John Retail",
+    "date": "2025-09-26",
+    "subtotal": 41337.0,
+    "tax_amount": null,
+    "total_amount": 41337.0
+}

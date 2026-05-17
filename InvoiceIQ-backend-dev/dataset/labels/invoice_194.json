@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1194",
+    "seller_name": "Skyline Corp",
+    "buyer_name": "Mega Stores",
+    "date": "2025-12-24",
+    "subtotal": 34074.0,
+    "tax_amount": null,
+    "total_amount": 34074.0
+}

@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1174",
+    "seller_name": "FutureSoft",
+    "buyer_name": "John Retail",
+    "date": "2025-06-23",
+    "subtotal": 47327.0,
+    "tax_amount": null,
+    "total_amount": 47327.0
+}

@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1112",
+    "seller_name": "TechNova",
+    "buyer_name": "Smart Solutions",
+    "date": "2025-05-16",
+    "subtotal": 27002.0,
+    "tax_amount": null,
+    "total_amount": 27002.0
+}

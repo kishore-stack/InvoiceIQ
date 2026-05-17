@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1099",
+    "seller_name": "Global Traders",
+    "buyer_name": "Blue Enterprises",
+    "date": "2025-06-23",
+    "subtotal": 15793.0,
+    "tax_amount": null,
+    "total_amount": 15793.0
+}

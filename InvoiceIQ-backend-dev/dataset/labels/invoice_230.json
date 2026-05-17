@@ -1,0 +1,9 @@
+{
+    "invoice_number": "INV-1230",
+    "seller_name": "Skyline Corp",
+    "buyer_name": "Blue Enterprises",
+    "date": "2026-02-10",
+    "subtotal": 6482.0,
+    "tax_amount": null,
+    "total_amount": 6482.0
+}
