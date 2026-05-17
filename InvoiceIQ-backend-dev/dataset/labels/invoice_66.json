@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1066",
-    "seller_name": "ABC Pvt Ltd",
-    "buyer_name": "Smart Solutions",
-    "date": "2025-07-23",
-    "subtotal": 33385.0,
-    "tax_amount": null,
-    "total_amount": 33385.0
-}

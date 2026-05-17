@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1115",
-    "seller_name": "Global Traders",
-    "buyer_name": "Blue Enterprises",
-    "date": "2026-03-03",
-    "subtotal": 28325.0,
-    "tax_amount": null,
-    "total_amount": 28325.0
-}

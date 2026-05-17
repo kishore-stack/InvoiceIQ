@@ -1,9 +1,0 @@
-{
-    "invoice_number": "INV-1211",
-    "seller_name": "Global Traders",
-    "buyer_name": "Quick Mart",
-    "date": "2025-06-10",
-    "subtotal": 40227.0,
-    "tax_amount": null,
-    "total_amount": 40227.0
-}
