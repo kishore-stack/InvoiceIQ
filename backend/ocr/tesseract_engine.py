@@ -16,8 +16,8 @@ class TesseractOCR:
     """
     
     def __init__(self):
-        self.outputs_dir = settings.OUTPUT_DIR
-        self.outputs_dir.mkdir(exist_ok=True)
+        self.outputs_dir = settings.OUTPUT_DIR / "ocr_logs"
+        self.outputs_dir.mkdir(parents=True, exist_ok=True)
         
         # OCR configuration
         self.language = 'eng'

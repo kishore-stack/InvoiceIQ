@@ -211,10 +211,10 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
                 for item in inv_data.get("line_items", []):
                     db_item = DBLineItem(
                         invoice_id=db_inv.id,
-                        description=item.get("description"),
+                        description=item.get("item"),
                         quantity=item.get("quantity", 1.0),
-                        unit_price=item.get("unit_price"),
-                        total=item.get("total")
+                        unit_price=item.get("price"),
+                        total=item.get("line_total")
                     )
                     db.add(db_item)
                 db.commit()
@@ -226,6 +226,13 @@ async def upload_invoice(file: UploadFile = File(...), db: Session = Depends(get
         logger.info(f"Successfully processed document: {document_id}")
         return response
     
+    except HTTPException as he:
+        logger.log_api_error("/api/upload", he.detail)
+        return create_error_response(
+            he.detail,
+            document_id
+        )
+        
     except Exception as e:
         logger.log_api_error("/api/upload", str(e))
         return create_error_response(
