@@ -21,7 +21,7 @@ app = FastAPI(
 # CORS
 origins = [
     "http://localhost:5173",
-    "invoice-iq-sd73-2rj8cjwiz-kishores-projects-6fd240ae.vercel.app"
+    "https://invoice-iq-sd73-2rj8cjwiz-kishores-projects-6fd240ae.vercel.app"
 ]
 
 app.add_middleware(
